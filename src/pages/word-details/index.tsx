@@ -3,7 +3,7 @@ import { Box, Paper, Typography, CircularProgress } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "http://0.0.0.0:8000/dictionary/word";
+const API_URL = "http://localhost:8000/dictionary/word";
 
 const WordDetailsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
