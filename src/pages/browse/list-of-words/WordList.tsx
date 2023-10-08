@@ -7,7 +7,7 @@ import SearchBox from "../../../components/search-box/SearchBox";
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+
 const ITEMS_PER_PAGE = 25;
 
 const WordList = () => {
