@@ -1,24 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {
-    Accordion,
-    Box,
-    Grid, ListItemText,
-    Pagination,
-    Typography,
-} from "@mui/material";
+import {Grid, Pagination, Typography,} from "@mui/material";
 import Header from "../../../components/Header";
-import {useSearchParams} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import axios from 'axios';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchBox from "../../../components/search-box/SearchBox";
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import {Link} from "react-router-dom";
-
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 const ITEMS_PER_PAGE = 25;
 
 const WordList = () => {
@@ -33,15 +22,9 @@ const WordList = () => {
     };
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const paginatedData = response.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-    const [expandedAccordion, setExpandedAccordion] = useState<any>(null);
 
-    const handleAccordionChange = (index: number) => {
-        if (expandedAccordion === index) {
-            setExpandedAccordion(null);
-        } else {
-            setExpandedAccordion(index);
-        }
-    };
+
+
     useEffect(() => {
         if (letter) {
             axios.get(`http://localhost:8000/dictionary/words_by_letter/?letter=${letter}`)
@@ -93,7 +76,8 @@ const WordList = () => {
 
 
 
-                            ))}d
+                            ))}
+
                     </Grid>
                 )}
             </Grid>
