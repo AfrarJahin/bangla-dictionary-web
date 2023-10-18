@@ -27,7 +27,7 @@ const WordList = () => {
 
     useEffect(() => {
         if (letter) {
-            axios.get(`http://localhost:8000/dictionary/words_by_letter/?letter=${letter}`)
+            axios.get(`http://localhost:8000/dictionary/words/?letter=${letter}`)
                 .then((response) => {
                     setResponse(response.data);
                     setLoading(false);

@@ -63,7 +63,7 @@ const SearchBox = () => {
 
     const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            navigate(`/word?word=${searchValue}`);
+            navigate(`/word-details?word=${searchValue}`);
         }
     };
 

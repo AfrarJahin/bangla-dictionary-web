@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://0.0.0.0:8000/getipa";
 
-const handleIPA = async (inputValue: string): Promise<{ result: string | null, error: string | null }> => {
+const handleIpa = async (inputValue: string): Promise<{ result: string | null, error: string | null }> => {
 
 
     try {
@@ -30,4 +30,4 @@ const handleIPA = async (inputValue: string): Promise<{ result: string | null, e
     }
 };
 
-export default handleIPA;
+export default handleIpa;

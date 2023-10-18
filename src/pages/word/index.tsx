@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
     Box, Button,
-    CircularProgress, Container,
+    CircularProgress,
     IconButton,
     Paper,
     Table,
@@ -17,7 +17,6 @@ import axios from "axios";
 import Divider from "@mui/material/Divider";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import InfoIcon from '@mui/icons-material/Info';
-import CustomModal from "./CustomModal";
 const API_URL = "http://localhost:8000/dictionary/word";
 
 const WordDetailsPage = () => {
@@ -26,16 +25,7 @@ const WordDetailsPage = () => {
     const [wordDetails, setWordDetails] = useState<any>({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [openModal, setOpenModal] = React.useState(false);
-    const [wordItemDetails, setWordItemDetails] = React.useState(false);
 
-    const handleClickModalOpen = (item:any) => {
-        setOpenModal(true);
-        setWordItemDetails(item)
-    };
-    const handleModalClose = () => {
-        setOpenModal(false);
-    };
     useEffect(() => {
         if (word) {
             axios
@@ -104,34 +94,13 @@ const WordDetailsPage = () => {
                                                 <TableCell
                                                     align="center">{spelling?.source ? spelling?.source : "-"}</TableCell>
                                                 <TableCell
-                                                    align="center"><IconButton onClick={()=>{handleClickModalOpen(spelling)}}><InfoIcon/></IconButton></TableCell>
+                                                    align="center"><IconButton><InfoIcon/></IconButton></TableCell>
                                             </TableRow>
                                         ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        {openModal && (
-                                    <CustomModal
-                                        onClose={handleModalClose}
-                                        title='Word Details'
-                                        titleCentered={true}>
-                                        <Container
-                                            maxWidth={'sm'}
-                                            sx={{
-                                                display: 'flex',
-                                                placeItems: 'center',
-                                                flexDirection: 'column',
-                                                overflowY: 'hidden',
-                                                '.MuiDialog-paper:has(&)': {
-                                                    maxWidth: '800px',
-                                                    height: '400px',
-                                                },
-                                            }}>
-                                            {wordItemDetails && <>  s</>}
 
-                                        </Container>
-                                    </CustomModal>
-                            )}
                     </>
                 ) : (
                     <Paper elevation={3} sx={{padding: 2}}>
@@ -142,7 +111,7 @@ const WordDetailsPage = () => {
                 )}
             </Box>
         </Box>
-);
+    );
 };
 
 export default WordDetailsPage;

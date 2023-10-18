@@ -1,1 +1,1 @@
-export {default as handleIPA} from './handleIPA';
+export {default as handleIPA} from './handle-ipa';
