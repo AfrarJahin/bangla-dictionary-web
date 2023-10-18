@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Grid, Pagination, Typography,} from "@mui/material";
+import {Grid, Pagination, TablePagination, Typography,} from "@mui/material";
 import Header from "../../../components/Header";
 import {Link, useSearchParams} from "react-router-dom";
 import axios from 'axios';
@@ -8,7 +8,6 @@ import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 
-const ITEMS_PER_PAGE = 25;
 
 const WordList = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -16,18 +15,25 @@ const WordList = () => {
     const [response, setResponse] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [limit, setLimit] = useState(rowsPerPage);
 
     const handlePageChange = (e: any, newPage: number) => {
         setCurrentPage(newPage);
     };
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedData = response.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setCurrentPage(1);
+        setLimit(rowsPerPage);
+    };
 
     useEffect(() => {
         if (letter) {
-            axios.get(`http://localhost:8000/dictionary/words/?letter=${letter}`)
+            // Send a request to the server with page and limit parameters
+            axios.get(`http://localhost:8000/dictionary/words?letter=${letter}&page=${currentPage}&limit=${limit}`)
                 .then((response) => {
                     setResponse(response.data);
                     setLoading(false);
@@ -37,7 +43,7 @@ const WordList = () => {
                     setLoading(false);
                 });
         }
-    }, [letter]);
+    }, [letter, currentPage, limit]);
 
     if (loading) {
         return (
@@ -62,36 +68,43 @@ const WordList = () => {
                     </Typography>
                 ) : (
                     <Grid container>
-                        {paginatedData.map((item, index) => (
-                            <Grid item xs={12} md={3} sm={6}>
+                        {response.map((item, index) => (
+                            <Grid item xs={12} md={3} sm={6} key={item.id}>
                                 <List dense={true}>
                                     <Link to={`/word-details?word=${item?.word}`}
-                                          style={{textDecoration: 'none', color: 'black'}}>
+                                          style={{ textDecoration: 'none', color: 'black' }}>
                                         <ListItem>
-                                            <LabelOutlinedIcon sx={{marginRight: '10px'}}/>
+                                            <LabelOutlinedIcon sx={{ marginRight: '10px' }} />
                                             {`${item?.word}`}
                                         </ListItem>
                                     </Link>
-                                </List></Grid>
-
-
-
-                            ))}
+                                </List>
+                            </Grid>
+                        ))}
 
                     </Grid>
                 )}
             </Grid>
-            {response.length > ITEMS_PER_PAGE && (
                 <Grid item xs={12} display="flex" justifyContent="center">
-                    <Pagination
-                        count={Math.ceil(response.length / ITEMS_PER_PAGE)}
+                    <TablePagination
+                        component="div"
+                        count={100}
                         page={currentPage}
-                        onChange={handlePageChange}
-                        variant="outlined"
-                        color="secondary"
+                        onPageChange={handlePageChange}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </Grid>
-            )}
+            {/*<Grid item xs={12} display="flex" justifyContent="center">*/}
+            {/*    <label>*/}
+            {/*        Items per page:*/}
+            {/*        <select onChange={(e) => handleLimitChange(Number(e.target.value))}>*/}
+            {/*            <option value={10}>10</option>*/}
+            {/*            <option value={25}>25</option>*/}
+            {/*            <option value={50}>50</option>*/}
+            {/*        </select>*/}
+            {/*    </label>*/}
+            {/*</Grid>*/}
         </Grid>
     );
 };
