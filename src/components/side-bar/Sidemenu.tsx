@@ -94,6 +94,12 @@ const sidebarItems = [
         to: '/instructions',
         icon: <QuestionAnswerOutlinedIcon />,
     },
+    {
+        id: 5,
+        title: 'About',
+        to: '/instructions',
+        icon: <QuestionAnswerOutlinedIcon />,
+    },
 ];
 
 export default function SideMenu() {

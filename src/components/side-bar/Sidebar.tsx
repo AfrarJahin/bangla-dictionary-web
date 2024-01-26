@@ -5,6 +5,11 @@ import SidebarItem from './SidebarItem';
 
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 interface SidebarProps {
     sidebarItems: {
         id: number;
@@ -24,9 +29,10 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                 {sidebarItems.map((item) => (
                     <SidebarItem key={item.id} item={item} />
                 ))}
+
             </List>
-            <Divider />
-            <List>
+            {/*<Divider />*/}
+           {/* <List>
                 {['Chat', 'Help'].map((text, index) => (
                     <SidebarItem
                         key={text}
@@ -38,7 +44,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                         }}
                     />
                 ))}
-            </List>
+            </List>*/}
         </div>
     );
 }

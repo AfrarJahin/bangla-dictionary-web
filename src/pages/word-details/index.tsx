@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {
-    Box, Button,
-    CircularProgress, Container,
+    Box,
+    Button,
+    CircularProgress,
+    Container,
     IconButton,
     Paper,
     Table,
@@ -12,14 +14,14 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import axios from "axios";
 import Divider from "@mui/material/Divider";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import InfoIcon from '@mui/icons-material/Info';
 import CustomModal from "./CustomModal";
-const API_URL = "http://localhost:8000/dictionary/word";
 
+const API_URL = "http://localhost:8000/dictionary/word";
 const WordDetailsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const word = searchParams.get("word");
@@ -28,7 +30,7 @@ const WordDetailsPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [openModal, setOpenModal] = React.useState(false);
     const [wordItemDetails, setWordItemDetails] = React.useState(false);
-
+    const navigate = useNavigate();
     const handleClickModalOpen = (item:any) => {
         setOpenModal(true);
         setWordItemDetails(item)
@@ -60,9 +62,13 @@ const WordDetailsPage = () => {
             alignItems="center"
 
         >
+          {/*  <Button onClick={()=>{
+                navigate(-1);}
+            } variant={'contained'} size={'medium'}>Back</Button>*/}
             <Box width="100%" maxWidth="800px">
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'}> <Typography variant="h2"
+                    <Box display={'flex'} justifyContent={'center'} alignItems={'center'}> <Typography variant="h2"
                                                                                                    align="center">
+
                     {wordDetails?.word} {wordDetails?.ipa ? `(${wordDetails.ipa})` : ""}
                 </Typography><IconButton><VolumeUpIcon sx={{marginLeft: "5px"}}/></IconButton></Box>
 

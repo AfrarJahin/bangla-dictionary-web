@@ -7,13 +7,16 @@ const App = ()=> {
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <div className="app">
-                    <main className="content">
-                        <SideMenu/>
+                <>
+                    <CssBaseline/>
+                    <div className="app">
+                        <main className="content">
+                            <SideMenu/>
 
-                    </main>
-                </div>
+                        </main>
+                    </div>
+                </>
+
             </ThemeProvider>
         </ColorModeContext.Provider>
     );

@@ -42,7 +42,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
         },
     },
 }));
-const SearchBox = () => {
+const   SearchBox = () => {
     const [isDisableCancelIcon, setIsDisableCancelIcon] = useState<boolean>(true);
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate() ;

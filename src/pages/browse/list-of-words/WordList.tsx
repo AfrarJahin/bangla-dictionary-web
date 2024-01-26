@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Grid, Pagination, TablePagination, Typography,} from "@mui/material";
+import {Button, Grid, TablePagination, Typography,} from "@mui/material";
 import Header from "../../../components/Header";
-import {Link, useSearchParams} from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
 import axios from 'axios';
 import SearchBox from "../../../components/search-box/SearchBox";
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-
 
 const WordList = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +16,7 @@ const WordList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [limit, setLimit] = useState(rowsPerPage);
-
+    const navigate = useNavigate();
     const handlePageChange = (e: any, newPage: number) => {
         setCurrentPage(newPage);
     };
@@ -55,7 +54,12 @@ const WordList = () => {
 
     return (
         <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xs={2}>
+                <Button onClick={()=>{
+                    navigate(-1);}
+                } variant={'contained'} size={'medium'}>Back</Button>
+            </Grid>
+            <Grid item xs={10}>
                 <SearchBox/>
             </Grid>
             <Grid item xs={12}>
@@ -72,9 +76,9 @@ const WordList = () => {
                             <Grid item xs={12} md={3} sm={6} key={item.id}>
                                 <List dense={true}>
                                     <Link to={`/word-details?word=${item?.word}`}
-                                          style={{ textDecoration: 'none', color: 'black' }}>
+                                          style={{textDecoration: 'none', color: 'black'}}>
                                         <ListItem>
-                                            <LabelOutlinedIcon sx={{ marginRight: '10px' }} />
+                                            <LabelOutlinedIcon sx={{marginRight: '10px'}}/>
                                             {`${item?.word}`}
                                         </ListItem>
                                     </Link>
@@ -85,26 +89,16 @@ const WordList = () => {
                     </Grid>
                 )}
             </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                    <TablePagination
-                        component="div"
-                        count={100}
-                        page={currentPage}
-                        onPageChange={handlePageChange}
-                        rowsPerPage={rowsPerPage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Grid>
-            {/*<Grid item xs={12} display="flex" justifyContent="center">*/}
-            {/*    <label>*/}
-            {/*        Items per page:*/}
-            {/*        <select onChange={(e) => handleLimitChange(Number(e.target.value))}>*/}
-            {/*            <option value={10}>10</option>*/}
-            {/*            <option value={25}>25</option>*/}
-            {/*            <option value={50}>50</option>*/}
-            {/*        </select>*/}
-            {/*    </label>*/}
-            {/*</Grid>*/}
+            <Grid item xs={12} display="flex" justifyContent="center">
+                <TablePagination
+                    component="div"
+                    count={100}
+                    page={currentPage}
+                    onPageChange={handlePageChange}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Grid>
         </Grid>
     );
 };
